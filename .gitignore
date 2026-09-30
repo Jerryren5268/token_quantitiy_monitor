@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.exe
+*.pdb
+runtime/
+dist/
+*.zip
+*.dpapi
+settings.json
+.env
+.venv/
+
