@@ -10,10 +10,11 @@ Windows 原生像素猫桌宠，用来查看 LMService 个人订阅剩余额度�
 
 以上为演示数据截图；卡片截图来自 1.2.3，当前版本另支持桌宠大小设置。
 
+![累计访问次数](https://hits.sh/github.com/Jerryren5268/token_quantity_monitor.svg?label=Views&color=79C83D)
 [![安装包总下载次数](https://img.shields.io/github/downloads/Jerryren5268/token_quantity_monitor/total?label=Downloads&color=orange)](https://github.com/Jerryren5268/token_quantity_monitor/releases)
 [![最新版本下载次数](https://img.shields.io/github/downloads/Jerryren5268/token_quantity_monitor/latest/total?label=Latest%20downloads&color=blue)](https://github.com/Jerryren5268/token_quantity_monitor/releases/latest)
 
-**访问统计（仓库管理员）：** [查看浏览量、独立访客数与克隆次数](https://github.com/Jerryren5268/token_quantity_monitor/graphs/traffic)。GitHub 提供最近 14 天的数据，仅有仓库推送权限的用户可查看。
+累计访问次数由第三方 Hits.sh 提供，自 2026-10-01 接入后持续累计，不按 14 天清零，无法补回接入前的数据。该数值统计计数图片的请求，不等于独立访客人数；重复访问、机器人及 GitHub 图片缓存会影响结果，依赖第三方服务可用性。
 
 下载徽章统计 GitHub Releases 附件的下载次数，包含重复下载，不代表独立下载人数或安装人数；不包含自动生成的 Source code 下载。徽章有缓存，更新可能延迟。
 
