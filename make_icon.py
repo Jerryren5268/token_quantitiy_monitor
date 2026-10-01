@@ -1,0 +1,27 @@
+from PIL import Image, ImageDraw, ImageFilter
+from pathlib import Path
+root=Path(__file__).parent
+size=1024
+background=Image.new('RGBA',(size,size),(0,0,0,0))
+shadow=Image.new('RGBA',(size,size),(0,0,0,0))
+d=ImageDraw.Draw(shadow)
+d.ellipse((53,67,971,985),fill=(35,24,68,80))
+background.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(28)))
+medal=Image.new('RGBA',(size,size),(0,0,0,0))
+d=ImageDraw.Draw(medal)
+d.ellipse((38,38,986,986),fill=(109,80,151,255))
+d.ellipse((58,58,966,966),fill=(237,226,250,255))
+d.ellipse((81,81,943,943),fill=(252,246,255,255))
+background.alpha_composite(medal)
+source=Image.open(root/'portrait-source.png').convert('RGBA')
+source=source.crop((12,10,244,245)).resize((944,956),Image.Resampling.LANCZOS)
+char=Image.new('RGBA',(size,size),(0,0,0,0))
+char.alpha_composite(source,(40,31))
+mask=Image.new('L',(size,size),0)
+ImageDraw.Draw(mask).ellipse((65,65,959,959),fill=255)
+alpha=Image.composite(char.getchannel('A'),Image.new('L',(size,size),0),mask)
+char.putalpha(alpha)
+background.alpha_composite(char)
+icon=background.resize((256,256),Image.Resampling.LANCZOS)
+icon.save(root/'dragon-girl.ico',format='ICO',sizes=[(16,16),(24,24),(32,32),(48,48),(64,64),(128,128),(256,256)])
+icon.save(root/'shortcut-icon-preview.png')

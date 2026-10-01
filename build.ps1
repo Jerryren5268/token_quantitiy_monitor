@@ -1,8 +1,12 @@
 $ErrorActionPreference = 'Stop'
 $petCompiler = 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe'
 $petSources = Get-ChildItem -LiteralPath $PSScriptRoot -Filter '*.cs' | ForEach-Object FullName
-$petIcon = Join-Path $PSScriptRoot 'cat.ico'
+$petIcon = Join-Path $PSScriptRoot 'dragon-girl.ico'
 $petExtra = @()
+foreach ($pose in @('stand','magic','click','treat','drag','sleep')) {
+    $petSprite = Join-Path $PSScriptRoot ('pose-' + $pose + '.png')
+    $petExtra += ('/resource:' + $petSprite + ',DragonGirl_' + $pose)
+}
 if (Test-Path -LiteralPath $petIcon) { $petExtra += ('/win32icon:' + $petIcon) }
 & $petCompiler /nologo /target:winexe /codepage:65001 /optimize+ ('/out:' + (Join-Path $PSScriptRoot 'LMServicePet.exe')) /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:System.Web.Extensions.dll /r:System.Core.dll $petExtra $petSources
 if ($LASTEXITCODE -ne 0) { throw 'Pixel pet compilation failed.' }

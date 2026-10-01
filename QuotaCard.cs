@@ -23,6 +23,8 @@ class QuotaCard : Form {
     public Func<bool> OverPet;
     public Action<string,string> QuotaChanged;
     public Action<string> SpendingDetected;
+    public Action RefreshStarted;
+    public Action<bool,bool> RefreshFinished;
     void DetectSpending(object previous,object current){
         if(SpendingDetected==null||!Style.Yes(previous,"logged_in")||!Style.Yes(current,"logged_in"))return;
         var before=Style.Get(previous,"personal");var after=Style.Get(current,"personal");
@@ -171,7 +173,7 @@ class QuotaCard : Form {
         catch(Exception e){if(!IsDisposed)status.Text=e.Message;return null;}
         finally{busy=false;if(!IsDisposed)home.Enabled=plansTab.Enabled=accountTab.Enabled=refresh.Enabled=settings.Enabled=true;}}
     public async Task RestoreState(){var d=await Send(AccountPipe.Command("state"));if(d!=null)loggedIn=Style.Yes(d,"logged_in");}
-    public async Task RefreshData(){if(busy||modal)return;var d=await Send(AccountPipe.Command("summary"));if(d==null){lastReadFailed=true;NotifyQuota();return;}lastReadFailed=false;var previous=snapshot;snapshot=d;DetectSpending(previous,d);loggedIn=Style.Yes(d,"logged_in");NotifyQuota();if(view!="account")Build();if(Style.Text(d,"message")=="")status.Text="更新于 "+DateTime.Now.ToString("HH:mm:ss")+" · "+RefreshDescription;}
+    public async Task RefreshData(){if(busy||modal)return;bool succeeded=false;if(RefreshStarted!=null)RefreshStarted();try{var d=await Send(AccountPipe.Command("summary"));if(d==null){lastReadFailed=true;NotifyQuota();return;}succeeded=true;lastReadFailed=false;var previous=snapshot;snapshot=d;DetectSpending(previous,d);loggedIn=Style.Yes(d,"logged_in");NotifyQuota();if(view!="account")Build();if(Style.Text(d,"message")=="")status.Text="更新于 "+DateTime.Now.ToString("HH:mm:ss")+" · "+RefreshDescription;}finally{if(RefreshFinished!=null)RefreshFinished(succeeded,loggedIn);}}
     async Task LoadPlans(){var d=await Send(AccountPipe.Command("plans"));if(d==null)return;plans.Clear();foreach(var p in Style.Items(Style.Get(d,"plans")))plans.Add(Style.Obj(p));Build();status.Text=plans.Count==0?"当前没有可订阅套餐。":"选择套餐，再点“再次订阅”确认价格。";}
     public void Preview(Dictionary<string,object> sample){snapshot=sample;loggedIn=true;Build();status.Text="演示数据 · 用于检查界面排版";}
     public void PreviewAccount(){view="account";Build();status.Text="演示界面 · 未连接网站";}
@@ -185,6 +187,5 @@ class PurchaseDialog : Form {
         Controls.Add(new Label{Text="将提交真实订阅请求。非零价格可能扣款。\n请确认套餐和价格。",Location=new Point(20,118),Size=new Size(300,49),ForeColor=Style.Muted});
         var cancel=new SoftButton{Text="取消",Location=new Point(120,186),DialogResult=DialogResult.Cancel};var ok=new SoftButton{Text="确认订阅",Location=new Point(215,186),Accent=true,DialogResult=DialogResult.OK};Controls.Add(cancel);Controls.Add(ok);CancelButton=cancel;AcceptButton=ok;}
 }
-
 
 
