@@ -23,6 +23,8 @@ Windows 原生龙娘桌宠，用来查看 LMService 个人订阅剩余额度、�
 
 把桌宠拖到桌面工作区的上边缘或右边缘后松手，会自动吸附并换成藏在边缘偷看的姿态。上边缘向下探头，右边缘从右侧探头；拖回桌面中间恢复原来的六种状态。靠边时仍可点击查看额度，重启后记住靠边位置。
 
+上边缘素材由 Gemini 网页根据同一角色重新绘制倒挂探头与双手抓握姿势，经补全发梢、透明背景处理和边缘对齐后使用。右边缘素材取自用户提供的侧面偷看图。
+
 ![上边缘和右边缘偷看预览](docs/images/dragon-girl-edge-peek.png)
 
 ![累计访问次数](https://hits.sh/github.com/Jerryren5268/token_quantity_monitor.svg?label=Views&color=79C83D)
